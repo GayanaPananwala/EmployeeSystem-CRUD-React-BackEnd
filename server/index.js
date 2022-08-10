@@ -5,6 +5,9 @@ const app = express();
 const mysql = require('mysql');
 
 
+const swaggerUi = require("swagger-ui-express"),
+ swaggerDoc = require("./config/swagger.json");
+
 
 const db = mysql.createPool({
     host: "localhost",
@@ -53,7 +56,7 @@ app.post("/create", (req, res) => {
 });
 
 
-
+//delete an employee from the database
 app.delete("/delete/:id", (req, res) => {
     const id = req.params.id;
     db.query("DELETE FROM employees WHERE empId = ?", id, (err, result) => {
@@ -65,7 +68,7 @@ app.delete("/delete/:id", (req, res) => {
     });
   });
 
-
+//update an employee wage
   app.put("/update", (req, res) => {
     const id = req.body.empId;
     const wage = req.body.wage;
@@ -81,6 +84,8 @@ app.delete("/delete/:id", (req, res) => {
   });
 
 
+  
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.listen(3001, ()=>{
     console.log("running on port 3001")

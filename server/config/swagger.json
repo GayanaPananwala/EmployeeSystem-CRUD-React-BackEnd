@@ -1,0 +1,243 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "description": "This is a simple example NodeJS API project to demonstrate Swagger Documentation",
+    "version": "1.0.0",
+    "title": "CRUD API",
+    "contact": {
+        "email": "abc@gmail.com"
+    },
+    "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+},
+
+"schemes": ["http"],
+"host": "localhost:3001",
+"tags": [
+    {
+        "name": "Employee CRUD Operations"
+    }
+],
+
+"paths" : {
+    "/employees" : {
+        "get" : {
+            "tags": [
+                "Employee CRUD Operations"
+            ],
+            "summary" : "Get all the employees",
+            "description": "Get all the employees",
+            "produces": ["application/json"],
+            "parameters": [],
+            "responses": {
+                "200": {
+                    "description": "Successful operation",
+                    "schema": {
+                      "$ref": "#/definitions/employeeResponse"
+                    }
+                  },
+                  "400": {
+                    "description": "Invalid status value",
+                    "schema": {
+                        "$ref": "#/definitions/InvalidResponse"
+                    }
+                }
+            }
+            }
+        },
+   
+    "/create": {
+        "post": {
+          "tags": [
+            "Employee CRUD Operations"
+          ],
+          "summary": "Create an employee",
+          "description": "Create an employee",
+          "operationId": "createEmployee",
+          "produces":["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Created employee object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Employee"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+                "description": "Successful operation",
+                "schema": {
+                  "$ref": "#/definitions/employeeResponse"
+                }
+              },
+              "400": {
+                "description": "Invalid status value",
+                "schema": {
+                    "$ref": "#/definitions/InvalidResponse"
+                }
+            }
+        }
+        }
+      },
+      "/update": {
+        "put": {
+            "tags": [
+                "Employee CRUD Operations"
+            ],
+            "summary": "Update employee wage",
+            "description": "Update employee wage",
+            "operationId": "updateWage",
+            "produces": [
+             
+              "application/json"
+            ],
+            "parameters": [
+             
+              {
+                "in": "body",
+                "name": "body",
+                "description": "Updated user object",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/Wage"
+                }
+              }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Successful operation",
+                    "schema": {
+                      "$ref": "#/definitions/employeeResponse"
+                    }
+                  },
+                  "400": {
+                    "description": "Invalid status value",
+                    "schema": {
+                        "$ref": "#/definitions/InvalidResponse"
+                    }
+                }
+            }
+          }
+     },
+     "/delete/{id}": {
+        "delete": {
+            "tags": [
+                "Employee CRUD Operations"
+            ],
+            "summary": "Delete an employee",
+            "description": "",
+            "operationId": "deleteEmployee",
+            "produces": [
+              
+              "application/json"
+            ],
+            "parameters": [
+            
+              {
+                "name": "id",
+                "in": "path",
+                "description": "Employee id to delete",
+                "required": true,
+                "type": "integer",
+                "format": "int64"
+              }
+            ],
+            "responses": {
+                "200": {
+                    "description": "successful operation",
+                    "schema": {
+                      "$ref": "#/definitions/employeeResponse"
+                    }
+                  },
+                  "400": {
+                    "description": "Invalid status value",
+                    "schema": {
+                        "$ref": "#/definitions/InvalidResponse"
+                    }
+                }
+            }
+
+     }
+    }
+},
+
+"definitions": {
+    "employeeResponse": {
+        "type": "object",
+        "properties": {
+            "empId": {
+                 "type": "integer"
+            },
+            "empName": {
+                "type": "string"
+            },
+            "age": {
+                "type": "integer"
+            },
+            "country": {
+                "type": "string"
+            },
+            "position": {
+                "type": "string"
+            },
+            "wage": {
+                "type": "integer"
+            }
+
+        }
+    },
+    "Employee": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "age": {
+                "type": "integer"
+            },
+            "country": {
+                "type": "string"
+            },
+            "position": {
+                "type": "string"
+            },
+            "wage": {
+                "type": "integer"
+            }
+        }
+    },
+    "Wage": {
+        "type": "object",
+        "properties": {
+
+            "wage": {
+                "type": "integer"
+            },
+            "empId": {
+                "type":"integer"
+            }
+        }
+
+    },
+    "InvalidResponse": {
+        "type": "object",
+        "properties": {
+            "statusCode": {
+                "type": "string"
+            },
+            "message": {
+                "type": "string"
+            }
+        }
+
+    }
+}
+}
+
+
+
